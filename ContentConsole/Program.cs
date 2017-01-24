@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using ContentConsole.Libraries;
+using ContentConsole.Models;
 
 namespace ContentConsole
 {
@@ -6,39 +9,34 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            var badWordLibrary = InitializeBadWordsLibrary();
+            
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            const string content = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            var contentList = content.ToLower().Split(' ').ToList();
+
+            var count = badWordLibrary.BadWords.Select(
+                        word => contentList.Where(x => x.Contains(word.Value.ToLower())))
+                        .Select(res => res.Count())
+                        .Sum();
 
             Console.WriteLine("Scanned the text:");
             Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+            Console.WriteLine("Total Number of negative words: " + count);
 
             Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
         }
-    }
 
+        private static BadWordLibrary InitializeBadWordsLibrary()
+        {
+            var badWordLibrary = new BadWordLibrary();
+            badWordLibrary.BadWords.Add(new BadWord {Value = "swine"});
+            badWordLibrary.BadWords.Add(new BadWord {Value = "bad"});
+            badWordLibrary.BadWords.Add(new BadWord {Value = "nasty"});
+            badWordLibrary.BadWords.Add(new BadWord {Value = "horrible"});
+            return badWordLibrary;
+        }
+    }
 }
