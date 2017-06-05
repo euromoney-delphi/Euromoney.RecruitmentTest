@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentConsole", "ContentConsole\ContentConsole.csproj", "{70DA2B36-EBF3-4438-9F95-ECC828A64527}"
 EndProject
@@ -13,6 +13,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D50987
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentConsole.Words", "ContentConsole.Words\ContentConsole.Words.csproj", "{7DE2070E-CFBC-40BB-8F90-FF0C049AA502}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 Base", "0 Base", "{510E0683-D34E-48B0-A1E2-63CB6DB72F04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{9A54AE9C-3887-478D-81DF-694EF7402104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{1EDB2FF4-328F-42DA-B598-27D361FEF190}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 App", "1 App", "{50CE3827-C3AE-4CFE-A6A7-38E0C2615735}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 Tests", "2 Tests", "{F03245A6-6DC4-43B5-9BF0-34951BC7BD4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4D6D66A-EC27-4C5E-A8AB-BE80E19D9FF7}"
+	ProjectSection(SolutionItems) = preProject
+		Info.txt = Info.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentConsole.Fakes", "ContentConsole.Fakes\ContentConsole.Fakes.csproj", "{CACECD8D-F088-44D8-9C61-8155263E4739}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,8 +47,32 @@ Global
 		{0F4BB904-F47A-405B-84C1-8D1332B1A781}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F4BB904-F47A-405B-84C1-8D1332B1A781}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4BB904-F47A-405B-84C1-8D1332B1A781}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE2070E-CFBC-40BB-8F90-FF0C049AA502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE2070E-CFBC-40BB-8F90-FF0C049AA502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE2070E-CFBC-40BB-8F90-FF0C049AA502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE2070E-CFBC-40BB-8F90-FF0C049AA502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A54AE9C-3887-478D-81DF-694EF7402104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A54AE9C-3887-478D-81DF-694EF7402104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A54AE9C-3887-478D-81DF-694EF7402104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A54AE9C-3887-478D-81DF-694EF7402104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EDB2FF4-328F-42DA-B598-27D361FEF190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EDB2FF4-328F-42DA-B598-27D361FEF190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EDB2FF4-328F-42DA-B598-27D361FEF190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EDB2FF4-328F-42DA-B598-27D361FEF190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACECD8D-F088-44D8-9C61-8155263E4739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACECD8D-F088-44D8-9C61-8155263E4739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACECD8D-F088-44D8-9C61-8155263E4739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACECD8D-F088-44D8-9C61-8155263E4739}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70DA2B36-EBF3-4438-9F95-ECC828A64527} = {50CE3827-C3AE-4CFE-A6A7-38E0C2615735}
+		{0F4BB904-F47A-405B-84C1-8D1332B1A781} = {F03245A6-6DC4-43B5-9BF0-34951BC7BD4F}
+		{7DE2070E-CFBC-40BB-8F90-FF0C049AA502} = {50CE3827-C3AE-4CFE-A6A7-38E0C2615735}
+		{9A54AE9C-3887-478D-81DF-694EF7402104} = {510E0683-D34E-48B0-A1E2-63CB6DB72F04}
+		{1EDB2FF4-328F-42DA-B598-27D361FEF190} = {510E0683-D34E-48B0-A1E2-63CB6DB72F04}
+		{CACECD8D-F088-44D8-9C61-8155263E4739} = {50CE3827-C3AE-4CFE-A6A7-38E0C2615735}
 	EndGlobalSection
 EndGlobal
