@@ -1,0 +1,3 @@
+﻿For playing with roles use the FakeUSerProfile in ContentConsole.Fakes library
+Usually for this kind of functionalities into a bigger scale inverted index based technologies are the appropiated one, lucene and lucene based like ElasticSearch, Solr, etc
+
