@@ -1,4 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ContentConsole
 {
@@ -6,39 +13,25 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            List<string> badWords = new List<string>()
+            {
+                "swine", "bad", "nasty", "horrible"
+            };
 
             string content =
                 "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            int badWordCount = WordAnalizer.CountBadWords(content, badWords);
 
             Console.WriteLine("Scanned the text:");
             Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+            Console.WriteLine($"Total Number of negative words: {badWordCount}");
 
             Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
         }
+
+        
     }
 
 }
