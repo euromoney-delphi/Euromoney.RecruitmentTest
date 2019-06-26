@@ -1,44 +1,33 @@
-﻿using System;
+﻿using Autofac;
+using ContentConsole.AppInterfaces;
+using ContentConsole.AppServices;
 
 namespace ContentConsole
 {
     public static class Program
     {
+        private static IContainer Container { get; set; }
+
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            var builder = new ContainerBuilder();
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            builder.RegisterType<AdminInteraction>().As<IAdminInteraction>();
+            builder.RegisterType<AdminMenuSelection>().As<IAdminMenuSelection>();
+            builder.RegisterType<ConsoleInteraction>().As<IConsoleInteraction>();
+            builder.RegisterType<NegativeWordStore>().As<INegativeWordStore>().InstancePerLifetimeScope(); // For shared instance
+            builder.RegisterType<UserInteraction>().As<IUserInteraction>();
+            builder.RegisterType<UserMenuSelection>().As<IUserMenuSelection>();
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<ContentConsole>().AsSelf();
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            Container = builder.Build();
 
-            Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
-
-            Console.WriteLine("Press ANY key to exit.");
-            Console.ReadKey();
+            using (var scope = Container.BeginLifetimeScope())
+            {
+                var contentConsole = scope.Resolve<ContentConsole>();
+                contentConsole.Start();
+            }
         }
     }
-
 }
