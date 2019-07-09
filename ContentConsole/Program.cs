@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ContentConsole
 {
@@ -6,31 +7,13 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            var bannedWords = new[] { "swine", "bad", "nasty", "horrible" };
 
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
+            var content = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            var strippedContent = new string(content.Where(c => !char.IsPunctuation(c)).ToArray());
+
+            int badWords = strippedContent.Split(' ').Count(x => bannedWords.Contains(x));
 
             Console.WriteLine("Scanned the text:");
             Console.WriteLine(content);
