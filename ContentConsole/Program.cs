@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContentConsole.Data;
+using System;
 using System.Linq;
 
 namespace ContentConsole
@@ -7,13 +8,12 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            var bannedWords = new[] { "swine", "bad", "nasty", "horrible" };
-
             var content = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
 
-            var strippedContent = new string(content.Where(c => !char.IsPunctuation(c)).ToArray());
+            // would inject ITextStripper here
+            var strippedContent = new TextStripper().StripText(content);
 
-            int badWords = strippedContent.Split(' ').Count(x => bannedWords.Contains(x));
+            int badWords = new WordScanner(new BannedWordsRepository()).CountBannedWords(strippedContent);
 
             Console.WriteLine("Scanned the text:");
             Console.WriteLine(content);
