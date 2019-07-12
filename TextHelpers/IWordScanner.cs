@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ContentConsole
+﻿namespace ContentConsole
 {
     public interface IWordScanner
     {
