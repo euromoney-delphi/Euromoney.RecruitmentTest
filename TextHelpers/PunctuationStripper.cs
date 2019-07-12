@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace ContentConsole
 {
-    public class TextStripper : ITextStripper
+    public class PunctuationStripper : IPunctuationStripper
     {
-        public string StripText(string text, bool stripPunctuation = true, IEnumerable<char> charsToStrip = null)
+        public string StripPunctuation(string text, bool stripPunctuation = true, IEnumerable<char> charsToStrip = null)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return string.Empty;

@@ -6,12 +6,12 @@ namespace ContentConsole.Test.Unit
     [TestFixture("Foo.Bar,Fizz:Buzz;", "")]
     [TestFixture("Foo. Bar, Fizz : Buzz; ", "")]
     [TestFixture("Foo. Bar, Fizz : Buzz; ", " F")]
-    public class TextStripperTests
+    public class PunctuationStripperTests
     {
         private readonly string _testString;
         private readonly string _extraChars;
 
-        public TextStripperTests(string testString, string extraChars)
+        public PunctuationStripperTests(string testString, string extraChars)
         {
             _testString = testString;
             _extraChars = extraChars;
@@ -19,8 +19,8 @@ namespace ContentConsole.Test.Unit
         [Test]
         public void TestStripPunctuation()
         {
-            ITextStripper stripper = new TextStripper();
-            var result = stripper.StripText(_testString, true, _extraChars);
+            IPunctuationStripper stripper = new PunctuationStripper();
+            var result = stripper.StripPunctuation(_testString, true, _extraChars);
 
             Assert.False(result.Any(c => char.IsPunctuation(c) || _extraChars.Contains(c)));
         }
