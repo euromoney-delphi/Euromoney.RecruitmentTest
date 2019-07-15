@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ContentConsole;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace ContentConsole.Test.Unit
