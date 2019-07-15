@@ -44,7 +44,7 @@ namespace ContentConsole
                     Console.WriteLine("You Are Not An Authorised Reader.");
                 }
             }
-
+            Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
         }
 
