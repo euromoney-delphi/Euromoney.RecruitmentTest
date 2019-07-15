@@ -66,7 +66,7 @@ namespace ContentConsole
                     Console.WriteLine("You Are Not An Authorised Administrative User.");
                 }
             }
-
+            Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
         }
 
