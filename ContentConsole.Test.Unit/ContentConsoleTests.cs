@@ -7,26 +7,28 @@ using NUnit.Framework;
 namespace ContentConsole.Test.Unit
 {
     [TestFixture]
-    class ContentConsoleTestscs
+    class ContentConsoleTests
     {
-        [Test]
-        public void AddNegativeWordsToRepo_AddsNegativeWordsToRepo_EnsuresWordAreAdded()
+        [TestCase(
+            "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.",
+            "The weather in Manchester in winter is b#d. It rains all the time - it must be h######e for people visiting.")]
+        [TestCase(
+            "The weather in Manchester in winter is good. It doesnt rain all the time - it must be horrible for people visiting.",
+            "The weather in Manchester in winter is good. It doesnt rain all the time - it must be h######e for people visiting.")]
+        [TestCase(
+            "The weather in Manchester in winter is good. It doesnt rain all the time - it must be wonderful for people visiting.",
+            "The weather in Manchester in winter is good. It doesnt rain all the time - it must be wonderful for people visiting.")]
+        public void FilterNegativeWords_HashesOutBadWords_ValuesAreEqual(string content, string expectedresult)
         {
-            List<string> badWordList = Program.AddNegativeWordsToRepo(new string[] { "rubbish" });
-            Assert.That(badWordList.Any(badword => badword == "rubbish"));
+            List<string> badWords = new List<string>() { "bad", "horrible" };
+            var result = Program.FilterNegativeWords(content, badWords);
+            Assert.AreEqual(result, expectedresult);
         }
 
         [Test]
-        public void RemoveNegativeWordsFromRepo_RemoveNegativeWordsFromRepo_EnsuresWordsAreRemoved()
+        public void IsReader_UserIsReader_ReturnsTrue()
         {
-            List<string> badWordList = Program.RemoveNegativeWordsRepo(new string[] { "swine" });
-            Assert.That(!badWordList.Any(badword => badword == "swine"));
-        }
-
-        [Test]
-        public void IsAdmin_UserIsAdmin_ReturnsTrue()
-        {
-            var result = Program.IsAdmin(new User() { IsAdmin = true });
+            var result = Program.IsReader(new User() { IsReader = true });
             Assert.IsTrue(result);
         }
     }

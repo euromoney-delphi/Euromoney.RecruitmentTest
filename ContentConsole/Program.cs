@@ -24,46 +24,24 @@ namespace ContentConsole
                 IsReader = runTimeSettings.IsReader,
                 IsUser = runTimeSettings.IsUser
             };
-
             #endregion
 
-            //Story2 Command Line = /story2 /isadmin
-            //Story2 Command Line = /story2 /isadmin /AddBadWords:rubbish,poor
-            //Story2 Command Line = /story2 /isadmin /RemoveBadWords:bad
+            //Story3 Command Line = /story3 /isreader 
 
             //Remove comments as necersary
-            //Setting Values Required For This Test(1)
-            runTimeSettings.Story2 = true;
-            user.IsAdmin = true;
+            //Setting Values Required For This Test
+            runTimeSettings.Story3 = true;
+            user.IsReader = true;
 
-            runTimeSettings.AddBadWords = true;
-            runTimeSettings.BadWordsToAdd = new string[] { "rubbish", "poor" };
-            runTimeSettings.RemoveBadWords = true;
-            runTimeSettings.BadWordsToRemove = new string[] { "bad" };
-
-
-            if (runTimeSettings.Story2)
+            if (runTimeSettings.Story3)
             {
-                if (IsAdmin(user))
+                if (IsReader(user))
                 {
-                    List<string> badWords = ReadBadWordsFromRepository();
-                    if (runTimeSettings.RemoveBadWords)
-                    {
-                        badWords = RemoveNegativeWordsRepo(runTimeSettings.BadWordsToRemove);
-                    }
-                    if (runTimeSettings.AddBadWords)
-                    {
-                        badWords.AddRange(AddNegativeWordsToRepo(runTimeSettings.BadWordsToAdd));
-                    }
-                    Console.WriteLine("The Following Words Are Defined As Bad In The Database: ({0} Word(s))", badWords.Count());
-                    for (int i = 0; i < badWords.Count(); i++)
-                    {
-                        Console.WriteLine("{0}: {1}", i, badWords[i]);
-                    }
+                    Console.WriteLine(FilterNegativeWords(runTimeSettings.Content, ReadBadWordsFromRepository()));
                 }
                 else
                 {
-                    Console.WriteLine("You Are Not An Authorised Administrative User.");
+                    Console.WriteLine("You Are Not An Authorised Reader.");
                 }
             }
 
@@ -81,13 +59,13 @@ namespace ContentConsole
         }
 
         /// <summary>
-        /// Is the User an Admin?
+        /// Is the User a Reader?
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static bool IsAdmin(User user)
+        public static bool IsReader(User user)
         {
-            return user.IsAdmin;
+            return user.IsReader;
         }
 
         /// <summary>
@@ -118,6 +96,22 @@ namespace ContentConsole
                 lMergedBadWords.Remove(wordToRemove);
             }
             return lMergedBadWords;
+        }
+
+        /// <summary>
+        /// Apply filter to negatve words in content
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="lBadWords"></param>
+        /// <returns></returns>
+        public static string FilterNegativeWords(string content, List<string> lBadWords)
+        {
+            foreach (string badWord in lBadWords)
+            {
+                string sReplacementWord = badWord[0].ToString() + new string('#', badWord.Length - 2) + badWord[badWord.Length - 1].ToString();
+                content = Regex.Replace(content, badWord, sReplacementWord, RegexOptions.IgnoreCase);
+            }
+            return content;
         }
     }
 
