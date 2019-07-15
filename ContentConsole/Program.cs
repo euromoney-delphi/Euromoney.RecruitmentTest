@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace ContentConsole
@@ -8,6 +9,7 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
+            #region CommonCodeForAllStories
             //Get command line arguments and store runtime settings.
             //All settings are stored in this class.
             //used to mimic different settings during runtime.
@@ -23,51 +25,99 @@ namespace ContentConsole
                 IsUser = runTimeSettings.IsUser
             };
 
-            //Story1 Command Line = /story1 /isuser
-            //Setting Values Required For This Test
-            runTimeSettings.Story1 = true;
-            user.IsUser = true;
+            #endregion
 
-            if (IsUser(user))
+            //Story2 Command Line = /story2 /isadmin
+            //Story2 Command Line = /story2 /isadmin /AddBadWords:rubbish,poor
+            //Story2 Command Line = /story2 /isadmin /RemoveBadWords:bad
+
+            //Remove comments as necersary
+            //Setting Values Required For This Test(1)
+            runTimeSettings.Story2 = true;
+            user.IsAdmin = true;
+
+            runTimeSettings.AddBadWords = true;
+            runTimeSettings.BadWordsToAdd = new string[] { "rubbish", "poor" };
+            runTimeSettings.RemoveBadWords = true;
+            runTimeSettings.BadWordsToRemove = new string[] { "bad" };
+
+
+            if (runTimeSettings.Story2)
             {
-                List<string> badWords = new List<string>() { "swine", "bad", "nasty", "horrible" };
-                int iBadWords = CountNegativeContent(runTimeSettings.Content, badWords);
-                Console.WriteLine("Scanned the text:");
-                Console.WriteLine(runTimeSettings.Content);
-                Console.WriteLine("Total Number of negative words: " + iBadWords);
+                if (IsAdmin(user))
+                {
+                    List<string> badWords = ReadBadWordsFromRepository();
+                    if (runTimeSettings.RemoveBadWords)
+                    {
+                        badWords = RemoveNegativeWordsRepo(runTimeSettings.BadWordsToRemove);
+                    }
+                    if (runTimeSettings.AddBadWords)
+                    {
+                        badWords.AddRange(AddNegativeWordsToRepo(runTimeSettings.BadWordsToAdd));
+                    }
+                    Console.WriteLine("The Following Words Are Defined As Bad In The Database: ({0} Word(s))", badWords.Count());
+                    for (int i = 0; i < badWords.Count(); i++)
+                    {
+                        Console.WriteLine("{0}: {1}", i, badWords[i]);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("You Are Not An Authorised Administrative User.");
+                }
             }
-            else
-            {
-                Console.WriteLine("You Are Not An Authorised User.");
-            }
-            Console.WriteLine("Press ANY key to exit.");
+
             Console.ReadKey();
         }
 
         /// <summary>
-        /// is the user a User?
+        /// Get The Bad Words from a text file
         /// </summary>
-        /// <param name="user"></param>
         /// <returns></returns>
-        public static bool IsUser(User user)
+        public static List<string> ReadBadWordsFromRepository()
         {
-            return user.IsUser;
+            //Reads Bad Words From The Database
+            return (new BadWordList()).BadWords;
         }
 
         /// <summary>
-        /// Count bad words in supplied content
+        /// Is the User an Admin?
         /// </summary>
-        /// <param name="content"></param>
-        /// <param name="lBadWords"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        public static int CountNegativeContent(string content, List<string> lBadWords)
+        public static bool IsAdmin(User user)
         {
-            int iBadWords = 0;
-            foreach (string badWord in lBadWords)
+            return user.IsAdmin;
+        }
+
+        /// <summary>
+        /// Simulates Adding New Bad Word To The Repo For This Runtime
+        /// </summary>
+        /// <param name="arrNewBadWords"></param>
+        /// <returns></returns>
+        public static List<string> AddNegativeWordsToRepo(string[] arrNewBadWords)
+        {
+            var lMergedBadWords = new List<string>();
+            foreach (string newBadWord in arrNewBadWords)
             {
-                iBadWords += Regex.Matches(content, badWord, RegexOptions.IgnoreCase).Count;
+                lMergedBadWords.Add(newBadWord);
             }
-            return iBadWords;
+            return lMergedBadWords;
+        }
+
+        /// <summary>
+        /// Simulates Removing A Bad Word From This Repo For This Runtime
+        /// </summary>
+        /// <param name="arrNewBadWords"></param>
+        /// <returns></returns>
+        public static List<string> RemoveNegativeWordsRepo(string[] arrNewBadWords)
+        {
+            var lMergedBadWords = new List<string>(ReadBadWordsFromRepository());
+            foreach (string wordToRemove in arrNewBadWords)
+            {
+                lMergedBadWords.Remove(wordToRemove);
+            }
+            return lMergedBadWords;
         }
     }
 
@@ -141,6 +191,7 @@ namespace ContentConsole
                 }
             }
         }
+
         public string Content { get; set; }
         public bool Story1 { get; set; }
         public bool Story2 { get; set; }

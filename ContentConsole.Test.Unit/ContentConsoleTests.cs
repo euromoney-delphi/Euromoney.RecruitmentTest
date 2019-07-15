@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ContentConsole;
 using NUnit.Framework;
 
@@ -8,20 +9,24 @@ namespace ContentConsole.Test.Unit
     [TestFixture]
     class ContentConsoleTestscs
     {
-        [TestCase("The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.", 2)]
-        [TestCase("The weather in Manchester in winter is bad. It doesnt rains all the time - it must be bad for people visiting.", 2)]
-        [TestCase("The weather in Manchester in winter is good. It doesnt rains all the time - it must be wonderful for people visiting.", 0)]
-        public void CountNegativeContent_BadWordCount_ValuesAreEqual(string content, int iExpectedResult = 2)
+        [Test]
+        public void AddNegativeWordsToRepo_AddsNegativeWordsToRepo_EnsuresWordAreAdded()
         {
-            List<string> lBadWords = new List<string>() { "bad", "horrible" };
-            int result = Program.CountNegativeContent(content, lBadWords);
-            Assert.AreEqual(result, iExpectedResult);
+            List<string> badWordList = Program.AddNegativeWordsToRepo(new string[] { "rubbish" });
+            Assert.That(badWordList.Any(badword => badword == "rubbish"));
         }
 
         [Test]
-        public void IsUser_UserIsUser_ReturnsTrue()
+        public void RemoveNegativeWordsFromRepo_RemoveNegativeWordsFromRepo_EnsuresWordsAreRemoved()
         {
-            var result = Program.IsUser(new User() { IsUser = true });
+            List<string> badWordList = Program.RemoveNegativeWordsRepo(new string[] { "swine" });
+            Assert.That(!badWordList.Any(badword => badword == "swine"));
+        }
+
+        [Test]
+        public void IsAdmin_UserIsAdmin_ReturnsTrue()
+        {
+            var result = Program.IsAdmin(new User() { IsAdmin = true });
             Assert.IsTrue(result);
         }
     }
