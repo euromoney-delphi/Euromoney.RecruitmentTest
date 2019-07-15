@@ -141,7 +141,6 @@ namespace ContentConsole
                 }
             }
         }
-
         public string Content { get; set; }
         public bool Story1 { get; set; }
         public bool Story2 { get; set; }
