@@ -24,28 +24,51 @@ namespace ContentConsole
                 IsReader = runTimeSettings.IsReader,
                 IsUser = runTimeSettings.IsUser
             };
-            #endregion
 
-            //Story3 Command Line = /story3 /isreader 
+            #endregion
 
             //Remove comments as necersary
             //Setting Values Required For This Test
-            runTimeSettings.Story3 = true;
-            user.IsReader = true;
+            runTimeSettings.Story4 = true;
+            //runTimeSettings.DisableFilter = true;
+            user.IsContentCurator = true;
 
-            if (runTimeSettings.Story3)
+
+            //Perform the third test if requested. Use a "DB" of words that can be changed
+            //Story4 Command Line = /story4  
+            //Story4 Command Line = /story4 /iscontentcurator
+            //Story4 Command Line = /story4 /iscontentcurator /disablefilter
+            if (runTimeSettings.Story4)
             {
-                if (IsReader(user))
+                if (IsContentCurator(user))
                 {
-                    Console.WriteLine(FilterNegativeWords(runTimeSettings.Content, ReadBadWordsFromRepository()));
+                    Console.WriteLine("Scanned the text:");
+                    Console.WriteLine(FilterNegativeWords(runTimeSettings.Content, ReadBadWordsFromRepository(), runTimeSettings.DisableFilter));
+                    Console.WriteLine("Total Number of negative words: {0}", CountNegativeContent(runTimeSettings.Content, ReadBadWordsFromRepository()));
                 }
                 else
                 {
-                    Console.WriteLine("You Are Not An Authorised Reader.");
+                    Console.WriteLine("You Are Not An Authorised Content Curator.");
                 }
             }
-
+            Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Count bad words in supplied content
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="lBadWords"></param>
+        /// <returns></returns>
+        public static int CountNegativeContent(string content, List<string> lBadWords)
+        {
+            int iBadWords = 0;
+            foreach (string badWord in lBadWords)
+            {
+                iBadWords += Regex.Matches(content, badWord, RegexOptions.IgnoreCase).Count;
+            }
+            return iBadWords;
         }
 
         /// <summary>
@@ -59,43 +82,13 @@ namespace ContentConsole
         }
 
         /// <summary>
-        /// Is the User a Reader?
+        /// Is the user a ContentCurator
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static bool IsReader(User user)
+        public static bool IsContentCurator(User user)
         {
-            return user.IsReader;
-        }
-
-        /// <summary>
-        /// Simulates Adding New Bad Word To The Repo For This Runtime
-        /// </summary>
-        /// <param name="arrNewBadWords"></param>
-        /// <returns></returns>
-        public static List<string> AddNegativeWordsToRepo(string[] arrNewBadWords)
-        {
-            var lMergedBadWords = new List<string>();
-            foreach (string newBadWord in arrNewBadWords)
-            {
-                lMergedBadWords.Add(newBadWord);
-            }
-            return lMergedBadWords;
-        }
-
-        /// <summary>
-        /// Simulates Removing A Bad Word From This Repo For This Runtime
-        /// </summary>
-        /// <param name="arrNewBadWords"></param>
-        /// <returns></returns>
-        public static List<string> RemoveNegativeWordsRepo(string[] arrNewBadWords)
-        {
-            var lMergedBadWords = new List<string>(ReadBadWordsFromRepository());
-            foreach (string wordToRemove in arrNewBadWords)
-            {
-                lMergedBadWords.Remove(wordToRemove);
-            }
-            return lMergedBadWords;
+            return user.IsContentCurator;
         }
 
         /// <summary>
@@ -103,15 +96,23 @@ namespace ContentConsole
         /// </summary>
         /// <param name="content"></param>
         /// <param name="lBadWords"></param>
+        /// <param name="bDisableFilter"></param>
         /// <returns></returns>
-        public static string FilterNegativeWords(string content, List<string> lBadWords)
+        public static string FilterNegativeWords(string content, List<string> lBadWords, bool bDisableFilter = false)
         {
-            foreach (string badWord in lBadWords)
+            if (bDisableFilter)
             {
-                string sReplacementWord = badWord[0].ToString() + new string('#', badWord.Length - 2) + badWord[badWord.Length - 1].ToString();
-                content = Regex.Replace(content, badWord, sReplacementWord, RegexOptions.IgnoreCase);
+                return content;
             }
-            return content;
+            else
+            {
+                foreach (string badWord in lBadWords)
+                {
+                    string sReplacementWord = badWord[0].ToString() + new string('#', badWord.Length - 2) + badWord[badWord.Length - 1].ToString();
+                    content = Regex.Replace(content, badWord, sReplacementWord, RegexOptions.IgnoreCase);
+                }
+                return content;
+            }
         }
     }
 

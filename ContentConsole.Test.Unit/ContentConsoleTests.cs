@@ -18,17 +18,20 @@ namespace ContentConsole.Test.Unit
         [TestCase(
             "The weather in Manchester in winter is good. It doesnt rain all the time - it must be wonderful for people visiting.",
             "The weather in Manchester in winter is good. It doesnt rain all the time - it must be wonderful for people visiting.")]
-        public void FilterNegativeWords_HashesOutBadWords_ValuesAreEqual(string content, string expectedresult)
+        [TestCase(
+            "The weather in Manchester in winter is good. It doesnt rain all the time - it must be horrible for people visiting.",
+            "The weather in Manchester in winter is good. It doesnt rain all the time - it must be horrible for people visiting.", true)]
+        public void FilterNegativeWords_HashesOutBadWords_ValuesAreEqual(string content, string expectedresult, bool bDisableFilter = false)
         {
             List<string> badWords = new List<string>() { "bad", "horrible" };
-            var result = Program.FilterNegativeWords(content, badWords);
+            var result = Program.FilterNegativeWords(content, badWords, bDisableFilter);
             Assert.AreEqual(result, expectedresult);
         }
 
         [Test]
-        public void IsReader_UserIsReader_ReturnsTrue()
+        public void IsContentCreator_UserIsContentCreator_ReturnsTrue()
         {
-            var result = Program.IsReader(new User() { IsReader = true });
+            var result = Program.IsContentCurator(new User() { IsContentCurator = true });
             Assert.IsTrue(result);
         }
     }
