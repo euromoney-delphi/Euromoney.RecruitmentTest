@@ -1,0 +1,9 @@
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\bin\Debug\ContentConsole.exe.config
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\bin\Debug\ContentConsole.exe
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\bin\Debug\ContentConsole.pdb
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\bin\Debug\EntityFramework.dll
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\bin\Debug\System.Data.Entity.Repository.dll
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\bin\Debug\EntityFramework.xml
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\obj\Debug\ContentConsole.csprojResolveAssemblyReference.cache
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\obj\Debug\ContentConsole.exe
+C:\Projects\Euromoney.RecruitmentTest\ContentConsole\obj\Debug\ContentConsole.pdb
