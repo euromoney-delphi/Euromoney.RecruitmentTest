@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ContentConsole
 {
@@ -6,35 +7,27 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
+            List<string> bannedWords = new List<string>();
+            bannedWords.Add("swine");
+            bannedWords.Add("bad");
+            bannedWords.Add("nasty");
+            bannedWords.Add("horrible");
 
             string content =
                 "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
 
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
+            Console.WriteLine("Enable negative word filtering? y/n");
+            string key = Console.ReadLine();
 
-            Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+            Console.WriteLine("Scanned the text");
+
+            if (key == "y")
+            {
+                Console.WriteLine("Fixed string: " + BannedTextHandler.WordFilter(bannedWords, content));
+            }
+            else Console.WriteLine(content);
+
+            Console.WriteLine("Total Number of negative words: " + BannedTextHandler.WordCount(bannedWords, content));
 
             Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
