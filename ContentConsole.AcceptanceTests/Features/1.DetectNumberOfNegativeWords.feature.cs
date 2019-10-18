@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace ContentConsole.AcceptanceTests
+namespace ContentConsole.AcceptanceTests.Features
 {
     using TechTalk.SpecFlow;
     
@@ -24,7 +24,7 @@ namespace ContentConsole.AcceptanceTests
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "DetectNumberOfNegativeWords.feature"
+#line 1 "1.DetectNumberOfNegativeWords.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -90,8 +90,6 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("the content is analysed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
  testRunner.Then(string.Format("the number of negative words should be {0}", expectedNumber), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 12
- testRunner.And("provide the analysed phrase as its output", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

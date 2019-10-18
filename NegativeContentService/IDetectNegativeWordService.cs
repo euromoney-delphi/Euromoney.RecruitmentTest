@@ -4,6 +4,6 @@ namespace NegativeContentService
 {
     public interface IDetectNegativeWordService
     {
-        ContentAnalysisResult GetDetectedNegativeContentAnalysis(string content);
+        ContentAnalysisResult GetNegativeContentAnalysis(string content);
     }
 }

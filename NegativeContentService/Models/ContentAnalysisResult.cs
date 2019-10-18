@@ -4,5 +4,6 @@
     {
         public string OriginalContent { get; set; }
         public int NumberOfBadWords { get; set; }
+        public string SanitizedContent { get; set; }
     }
 }

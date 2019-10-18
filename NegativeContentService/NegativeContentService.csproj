@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\INegativeWordRepository.cs" />
     <Compile Include="IDetectNegativeWordService.cs" />
     <Compile Include="Models\ContentAnalysisResult.cs" />
     <Compile Include="DetectNegativeWordService.cs" />
