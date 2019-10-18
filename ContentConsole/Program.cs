@@ -1,4 +1,7 @@
 ﻿using System;
+using ContentConsole.Configuration;
+using ContentConsole.DataAccess;
+using ContentConsole.Services;
 
 namespace ContentConsole
 {
@@ -6,39 +9,25 @@ namespace ContentConsole
     {
         public static void Main(string[] args)
         {
-            string bannedWord1 = "swine";
-            string bannedWord2 = "bad";
-            string bannedWord3 = "nasty";
-            string bannedWord4 = "horrible";
-
-            string content =
-                "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
-
-            int badWords = 0;
-            if (content.Contains(bannedWord1))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord2))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord3))
-            {
-                badWords = badWords + 1;
-            }
-            if (content.Contains(bannedWord4))
-            {
-                badWords = badWords + 1;
-            }
-
+            const string content = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
             Console.WriteLine("Scanned the text:");
-            Console.WriteLine(content);
-            Console.WriteLine("Total Number of negative words: " + badWords);
+          
+
+            if (args.Length == 0 || args[0].ToLower() != "-disablefilter")
+            {
+                var badWordsRepository = new FilterWordsRepository();
+                var textAnalysisService = new TextFilterService(new FilterWordsProvider(badWordsRepository.LoadBadWordsFromRepo(ConfigSettings.FilterBadWordsRepoFilePath)));
+                var result = textAnalysisService.AnalyseText(content);
+                Console.WriteLine(result.FilteredContent);
+                Console.WriteLine("Total Number of negative words: " + result.NumberOfFilteredWordsFound);
+            }
+            else
+            {
+                Console.WriteLine(content);
+            }
 
             Console.WriteLine("Press ANY key to exit.");
             Console.ReadKey();
         }
     }
-
 }
