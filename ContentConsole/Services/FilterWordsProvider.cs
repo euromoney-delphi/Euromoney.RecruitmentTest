@@ -4,16 +4,16 @@ namespace ContentConsole.Services
 {
     public interface IFilterWordsProvider
     {
-        IList<string> BadWordsList { get; }
+        IList<string> FilterWordsList { get; }
     }
 
     public class FilterWordsProvider : IFilterWordsProvider
     {
-        public IList<string> BadWordsList { get; }
+        public IList<string> FilterWordsList { get; }
 
-        public FilterWordsProvider(IList<string> badWordsList)
+        public FilterWordsProvider(IList<string> filterWordsList)
         {
-            BadWordsList = badWordsList;
+            FilterWordsList = filterWordsList;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace ContentConsole.Test.Unit.ServicesTests
             var fixture = new Fixture().Customize(new AutoMoqCustomization());
             var mockBadWordsList = new List<string> { "swine", "bad", "nasty", "horrible" };
             var badWordsProviderMock = fixture.Freeze<Mock<IFilterWordsProvider>>();
-            badWordsProviderMock.Setup(provider => provider.BadWordsList).Returns(mockBadWordsList);
+            badWordsProviderMock.Setup(provider => provider.FilterWordsList).Returns(mockBadWordsList);
             _classUnderTest = fixture.Create<TextFilterService>();
         }
 

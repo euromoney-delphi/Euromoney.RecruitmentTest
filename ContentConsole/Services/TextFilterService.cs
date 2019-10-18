@@ -16,7 +16,7 @@ namespace ContentConsole.Services
         {
             if (string.IsNullOrEmpty(content))
                 return new TextFilterResult { NumberOfFilteredWordsFound = 0, FilteredContent = content };
-            var pattern = string.Join("|", _badWordsProvider.BadWordsList.Select(Regex.Escape));
+            var pattern = string.Join("|", _badWordsProvider.FilterWordsList.Select(Regex.Escape));
             var match = Regex.Matches(content, pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
             var newContent = Regex.Replace(content,
                 pattern,
