@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\FilteredPhrasePart.cs" />
+    <Compile Include="Models\IFilteredPhrasePart.cs" />
+    <Compile Include="Models\IPhrase.cs" />
+    <Compile Include="Models\IPhrasePart.cs" />
     <Compile Include="Models\Phrase.cs" />
     <Compile Include="Models\PhrasePart.cs" />
     <Compile Include="Program.cs" />

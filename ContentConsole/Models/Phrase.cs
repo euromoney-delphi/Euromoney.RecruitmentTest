@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using ContentConsole.Services;
 
 namespace ContentConsole.Models
 {
-    public class Phrase
+    public class Phrase : IPhrase
     {
         private readonly string _original;
-        private readonly List<PhrasePart> _phraseParts = new List<PhrasePart>();
-        public IEnumerable<PhrasePart> PhraseParts => _phraseParts.ToArray();
+        private readonly List<IPhrasePart> _phraseParts = new List<IPhrasePart>();
+        public IEnumerable<IPhrasePart> PhraseParts => _phraseParts.ToArray();
 
         public Phrase(string original)
         {
             _original = original;
         }
 
-        public void AddPhrasePart(PhrasePart part)
+        public void AddPhrasePart(IPhrasePart part)
         {
             _phraseParts.Add(part);
         }

@@ -2,7 +2,7 @@
 
 namespace ContentConsole.Models
 {
-    public class PhrasePart
+    public class PhrasePart : IPhrasePart
     {
 
         public PhrasePart(char firstChar)
@@ -30,25 +30,6 @@ namespace ContentConsole.Models
         public override string ToString()
         {
             return Part;
-        }
-    }
-
-    public class FilteredPhrasePart : PhrasePart
-    {
-        private string _originalPart;
-        public FilteredPhrasePart(string originalPart, bool isWord, bool isFilteredWord, string part)
-        {
-            OriginalPart = originalPart;
-            Part = part;
-            IsWord = isWord;
-            IsFilteredWord = isFilteredWord;
-        }
-
-        public bool IsFilteredWord { get; set; }
-        public string OriginalPart
-        {
-            get => _originalPart ?? Part;
-            private set => _originalPart = value;
         }
     }
 }
