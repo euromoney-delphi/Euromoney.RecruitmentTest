@@ -2,9 +2,9 @@
 
 namespace ContentConsole
 {
-    public static class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             string bannedWord1 = "swine";
             string bannedWord2 = "bad";
@@ -40,5 +40,4 @@ namespace ContentConsole
             Console.ReadKey();
         }
     }
-
 }
