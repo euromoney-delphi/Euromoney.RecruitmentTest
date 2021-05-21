@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ContentConsole.Model;
 using ContentConsole.Processor;
 using ContentConsole.Service;
@@ -75,9 +76,9 @@ namespace ContentConsole
             Console.WriteLine($"Input text to scan:");
 
             var input = Console.ReadLine();
-            var content = userInputProcessor.ProcessUserInput(input);
+            var content = userInputProcessor.GetUserInput(input);
             Console.WriteLine($"Scanned the text:");
-            Console.WriteLine($"{content.InputUnformatted}");
+            Console.WriteLine($"{content.InputFiltered}");
             Console.WriteLine($"Total Number of negative words: {content.BadWordsCount}");
 
             Console.WriteLine("Press ANY key to exit.");

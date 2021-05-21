@@ -19,10 +19,13 @@ namespace ContentConsole.Processor
         public Content GetUserInput(string userInput)
         {
             var content = new Content();
+            List<string> bannedWords = _apiService.GetNegativeWordsAsync();
             content.InputUnformatted = userInput;
             content.InputFormatted = Regex.Replace(userInput, @"[^\w\s]", "");
+            content.InputFiltered = FilterHelper.FilterOutString(userInput, "#", bannedWords);
             return content;
         }
+
 
         public Content ProcessUserInput(string input)
         {
@@ -37,7 +40,7 @@ namespace ContentConsole.Processor
             if (content.InputFormatted == string.Empty)
             {
                 Console.WriteLine("Please enter valid input.");
-                throw new Exception("Incorrect input."); 
+                throw new Exception("Incorrect input.");
             }
             {
 
