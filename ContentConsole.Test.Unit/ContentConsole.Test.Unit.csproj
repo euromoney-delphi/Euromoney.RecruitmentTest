@@ -16,6 +16,7 @@
   <ItemGroup>
   <ProjectReference Include="..\ContentConsole.Model\ContentConsole.Model.csproj" />
   <ProjectReference Include="..\ContentConsole.Processor\ContentConsole.Processor.csproj" />
+  <ProjectReference Include="..\ContentConsole.Service\ContentConsole.Service.csproj" />
 </ItemGroup>
 
 </Project>

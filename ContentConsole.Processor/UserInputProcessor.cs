@@ -2,12 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ContentConsole.Model;
+using ContentConsole.Service;
 
 namespace ContentConsole.Processor
 {
+
     public class UserInputProcessor : IUserInputProcessor
     {
+        private readonly INegativeWordsApiService _apiService;
+
+        public UserInputProcessor(INegativeWordsApiService apiService)
+        {
+            _apiService = apiService;
+        }
 
         public Content GetUserInput(string userInput)
         {
@@ -34,22 +41,15 @@ namespace ContentConsole.Processor
             }
             {
 
-                List<string> bannedWords = GetBannedWords();
+                List<string> bannedWords = _apiService.GetNegativeWordsAsync();
                 var inputToArray = content.InputFormatted.Split(' ');
                 List<string> inputToList = new List<string>(inputToArray);
 
-                content.BadWordsCount = inputToList.Where(x => bannedWords.Contains(x)).Distinct().Count();
-                content.BadWords = inputToList.Where(x => bannedWords.Contains(x)).Distinct().ToList();
+                content.BadWordsCount = inputToList.Where(x => bannedWords.Contains(x.ToLower())).Count();
+                content.BadWords = inputToList.Where(x => bannedWords.Contains(x.ToLower())).ToList();
 
                 return content;
             }
-        }
-
-
-
-        public List<string> GetBannedWords()
-        {
-            return new List<string> { "swine", "bad", "nasty", "horrible" };
         }
     }
 }

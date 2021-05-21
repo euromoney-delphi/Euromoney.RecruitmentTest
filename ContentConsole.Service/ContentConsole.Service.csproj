@@ -4,9 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-<ItemGroup>
+  <ItemGroup>
   <ProjectReference Include="..\ContentConsole.Model\ContentConsole.Model.csproj" />
-  <ProjectReference Include="..\ContentConsole.Service\ContentConsole.Service.csproj" />
 </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
 </Project>

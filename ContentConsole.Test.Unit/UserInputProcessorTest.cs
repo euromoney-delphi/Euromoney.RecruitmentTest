@@ -2,19 +2,25 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ContentConsole.Model;
 using ContentConsole.Processor;
+using ContentConsole.Service;
 using Moq;
 using NUnit.Framework;
 
 namespace ContentConsole.Test.Unit
 {
+    [TestFixture]
     public class UserInputProcessorTest
     {
+        private List<string> _badWordsList;
         private UserInputProcessor _processor;
+        private Mock<INegativeWordsApiService> _apiService;
 
         [SetUp]
         public void Setup()
         {
-            _processor = new UserInputProcessor();
+            _badWordsList = new List<string> { "swine", "bad", "nasty", "horrible" };
+            _apiService = new Mock<INegativeWordsApiService>();
+            _processor = new UserInputProcessor(_apiService.Object);
         }
 
         [Test]
@@ -24,6 +30,7 @@ namespace ContentConsole.Test.Unit
             //Arrange
             var input = Constants.INPUT;
 
+            _apiService.Setup(x => x.GetNegativeWordsAsync()).Returns(_badWordsList);
             //Act
 
             var result = _processor.ProcessUserInput(input);
@@ -41,6 +48,8 @@ namespace ContentConsole.Test.Unit
             var input = Constants.INPUT;
             var expectedOutput = Regex.Replace(input, @"[^\w\s]", "");
 
+            _apiService.Setup(x => x.GetNegativeWordsAsync()).Returns(_badWordsList);
+
             //Act
 
             var result = _processor.ProcessUserInput(input);
@@ -57,9 +66,9 @@ namespace ContentConsole.Test.Unit
             var input = Constants.INPUT;
 
             _processor.GetUserInput(input);
+            _apiService.Setup(x => x.GetNegativeWordsAsync()).Returns(_badWordsList);
+
             //Act
-
-
             var result = _processor.ProcessUserInput(input);
 
             //Assert
