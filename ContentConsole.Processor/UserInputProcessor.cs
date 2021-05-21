@@ -23,6 +23,7 @@ namespace ContentConsole.Processor
             content.InputUnformatted = userInput;
             content.InputFormatted = Regex.Replace(userInput, @"[^\w\s]", "");
             content.InputFiltered = FilterHelper.FilterOutString(userInput, "#", bannedWords);
+            
             return content;
         }
 
