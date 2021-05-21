@@ -21,6 +21,9 @@ bld/
 # Roslyn cache directories
 *.ide/
 
+# Mono auto generated files
+mono_crash.*
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
@@ -182,3 +185,4 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 /.vs/*
+.DS_Store
