@@ -8,6 +8,5 @@ namespace ContentConsole.Processor
         Content ProcessUserInput(string input);
         Content GetUserInput(string userInput);
         Content AnalyseNegativeWords(Content content);
-        List<string> GetBannedWords();
     }
 }

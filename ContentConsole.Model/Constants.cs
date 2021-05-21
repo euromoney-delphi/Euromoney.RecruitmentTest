@@ -7,6 +7,6 @@ namespace ContentConsole.Model
     public class Constants
     {
         public const string INPUT = "The weather in Manchester in winter is bad. It rains all the time - it must be horrible for people visiting.";
-
+        public const string ADMIN_ROLE = "A";
     }
 }

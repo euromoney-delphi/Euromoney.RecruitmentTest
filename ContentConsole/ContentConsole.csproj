@@ -5,7 +5,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 <ItemGroup>
-  <ProjectReference Include = "..\ContentConsole.Model\ContentConsole.Model.csproj"/>
-  <ProjectReference Include = "..\ContentConsole.Processor\ContentConsole.Processor.csproj"/>
+  <ProjectReference Include="..\ContentConsole.Model\ContentConsole.Model.csproj" />
+  <ProjectReference Include="..\ContentConsole.Service\ContentConsole.Service.csproj" />
+  <ProjectReference Include="..\ContentConsole.Processor\ContentConsole.Processor.csproj" />
 </ItemGroup>
 </Project>
