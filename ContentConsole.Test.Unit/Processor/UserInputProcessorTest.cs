@@ -65,14 +65,33 @@ namespace ContentConsole.Test.Unit
             //Arrange
             var input = Constants.INPUT;
 
-            _processor.GetUserInput(input);
             _apiService.Setup(x => x.GetNegativeWordsAsync()).Returns(_badWordsList);
+            _processor.GetUserInput(input);
 
             //Act
             var result = _processor.ProcessUserInput(input);
 
             //Assert
             Assert.AreEqual(2, result.BadWordsCount);
+        }
+
+        [Test]
+        [Category("User Input - Negative Words Filtering")]
+        public void ShouldFilterWordsFromUserInput()
+        {
+            //Arrange
+            var input = Constants.INPUT;
+            var expectedOutput = "The weather in Manchester in winter is b#d It rains all the time  it must be h######e for people visiting";
+
+
+            _apiService.Setup(x => x.GetNegativeWordsAsync()).Returns(_badWordsList);
+            _processor.GetUserInput(input);
+
+            //Act
+            var result = _processor.ProcessUserInput(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, result.InputFiltered);
         }
     }
 }

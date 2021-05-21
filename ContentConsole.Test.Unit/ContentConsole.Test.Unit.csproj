@@ -19,4 +19,9 @@
   <ProjectReference Include="..\ContentConsole.Service\ContentConsole.Service.csproj" />
 </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Processor\" />
+    <Folder Include="Service\" />
+    <Folder Include="Helper\" />
+  </ItemGroup>
 </Project>
