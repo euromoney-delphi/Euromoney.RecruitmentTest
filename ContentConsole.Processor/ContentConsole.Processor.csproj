@@ -9,4 +9,8 @@
   <ProjectReference Include="..\ContentConsole.Service\ContentConsole.Service.csproj" />
 </ItemGroup>
 
+<ItemGroup>
+  <Folder Include="Interfaces\" />
+  <Folder Include="Helpers\" />
+</ItemGroup>
 </Project>

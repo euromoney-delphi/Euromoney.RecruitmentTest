@@ -9,4 +9,7 @@
   <ProjectReference Include="..\ContentConsole.Service\ContentConsole.Service.csproj" />
   <ProjectReference Include="..\ContentConsole.Processor\ContentConsole.Processor.csproj" />
 </ItemGroup>
+<ItemGroup>
+  <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+</ItemGroup>
 </Project>
