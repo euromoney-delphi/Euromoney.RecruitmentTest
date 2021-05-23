@@ -1,7 +1,7 @@
-﻿using System;
-using ContentConsole.Model;
-using ContentConsole.Processor;
+﻿using ContentConsole.Processor;
 using ContentConsole.Service;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace ContentConsole
 {
@@ -9,25 +9,17 @@ namespace ContentConsole
     {
         static void Main(string[] args)
         {
-            Content content;
-            var apiService = new NegativeWordsApiService();
-            var userInputProcessor = new UserInputProcessor(apiService);
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context,services) =>
+                {
+                    services.AddScoped<IContentConsoleProcessor, ContentConsoleProcessor>();
+                    services.AddScoped<IUserInputProcessor, UserInputProcessor>();
+                    services.AddScoped<INegativeWordsApiService, NegativeWordsApiService>();
+                })
+                .Build();
 
-            Console.WriteLine($"Please select your role. Type A for Admin Role, C for Content Curator or U for user:");
-
-            var role = Console.ReadLine();
-            if (role == Constants.ADMIN_ROLE)
-            {
-                ProgramHelper.RunAdminPath(apiService, userInputProcessor);
-                return;
-            }
-            else if (role == Constants.CONTENT_CURATOR_ROLE)
-            {
-                ProgramHelper.RunContentCuratorPath(apiService, userInputProcessor);
-                return;
-            }
-
-            ProgramHelper.GetUserInputWithFilter(userInputProcessor);
+            var service = ActivatorUtilities.CreateInstance<ContentConsoleProcessor>(host.Services);
+            service.Run();
         }
 
     }

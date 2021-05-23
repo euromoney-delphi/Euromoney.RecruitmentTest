@@ -5,9 +5,9 @@ namespace ContentConsole.Processor
 {
     public static class ProgramHelper
     {
-        public static void RunContentCuratorPath(NegativeWordsApiService apiService, UserInputProcessor userInputProcessor)
+        public static void RunContentCuratorPath(IUserInputProcessor userInputProcessor)
         {
-            Console.WriteLine($"Would you like to display filtered output? Type Y for yes or N for no");
+            Console.WriteLine($"Would you like to display filtered output? Type Y for yes or N for no.");
             var filter = Console.ReadLine();
 
             switch (filter.ToUpper())
@@ -20,7 +20,7 @@ namespace ContentConsole.Processor
 
                 case "N":
                     {
-                        GetUserInputWithNoFilter(userInputProcessor);
+                        GetUserInputWithoutFilter(userInputProcessor);
                         break;
                     }
                 default:
@@ -28,7 +28,7 @@ namespace ContentConsole.Processor
             }
         }
 
-        public static void RunAdminPath(NegativeWordsApiService apiService, UserInputProcessor userInputProcessor)
+        public static void RunAdminPath(INegativeWordsApiService apiService, IUserInputProcessor userInputProcessor)
         {
 
             Console.WriteLine($"Please select action - R - to read current negative word, A to add new negative words or D to remove existing negative word.");
@@ -50,12 +50,16 @@ namespace ContentConsole.Processor
                     }
                 case "D":
                     {
+                        var currentWords = apiService.GetNegativeWordsAsync();
+                        Console.WriteLine($"You can remove words from below list of {currentWords.Count}: ");
+                        currentWords.ForEach(x => Console.WriteLine($"{x}"));
+
                         Console.WriteLine($"Please type word to remove.");
                         var word = Console.ReadLine();
                         apiService.RemoveNegativeWords(word.ToLower());
 
-                        Console.WriteLine($"Current words library: ");
                         var words = apiService.GetNegativeWordsAsync();
+                        Console.WriteLine($"Current words library cointains {words.Count} words: ");
                         words.ForEach(x => Console.WriteLine($"{x}"));
                         break;
                     }
@@ -69,11 +73,12 @@ namespace ContentConsole.Processor
                     break;
             }
 
-            GetUserInputWithFilter(userInputProcessor);
+            GetUserInputWithoutFilter(userInputProcessor);
 
         }
 
-        public static void GetUserInputWithFilter(UserInputProcessor userInputProcessor)
+
+        public static void GetUserInputWithFilter(IUserInputProcessor userInputProcessor)
         {
             Console.WriteLine($"Input text to scan:");
 
@@ -87,7 +92,7 @@ namespace ContentConsole.Processor
             Console.ReadKey();
         }
 
-        private static void GetUserInputWithNoFilter(UserInputProcessor userInputProcessor)
+        public static void GetUserInputWithoutFilter(IUserInputProcessor userInputProcessor)
         {
             Console.WriteLine($"Input text to scan:");
 

@@ -1,29 +1,16 @@
-## Intro
 
-One of the things we do at Euromoney is publish and manage content.
-This assignment is to analyse text, detecting and filtering negative words.
+## Table of contents
+* [General info](#general-info)
+* [Requirements](#requirements)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Comments](#comments)
 
+## General info
 - This assignment takes between 30 minutes and an hour.
 - [NUnit](http://www.nunit.org) and [Moq](http://code.google.com/p/moq), references have been added using [NuGet](http://nuget.codeplex.com/) Packages.
 
-## Task requirements
-
-- All stories to be completed with an appropriate level of testing.
-- No actual storage implementation or databases are required, feel free to stub or mock any data access you need.
-- Reformat, refactor and rework the provided code in any way you see fit.
-- Code must be supported by tests to be "done-done".
-- Please submit your changes as a new pull request on *this* repo, and not on the original repo from which this is forked. If you can't submit a pull request then zip up your code and email it to us, but PRs are *strongly* preferred.
-
-
-## Advice to candidates
-
-- You should approach this task in the same way that you would a real, production assignment. Do not 'code to the test'. 
-- It is more important that you show the right approach than that you complete all the stories. If you run low on time, apply an MVP to the stories. 
-- We will assume that the code you produce for this exercise reflects the kind of code you would write in a real-world situation, and assess accordingly.
-
-## Task Stories
-
-Please complete each story in order.
+## Requirements 
 
 ---
 
@@ -82,5 +69,21 @@ So that **I can see the original content**.
 - Original text output
 
 ---
+	
+## Technologies
+Project is created with:
 
-Thanks for your time, we look forward to hearing from you!
+* .NET Core 3.1
+	
+## Setup
+To run this project:
+
+```
+$ dotnet run
+
+```
+
+## Comments
+
+* Updated project to use .NET Core 3.1
+
