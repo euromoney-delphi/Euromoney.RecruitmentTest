@@ -7,8 +7,8 @@
 * [Comments](#comments)
 
 ## General info
-- This assignment takes between 30 minutes and an hour.
-- [NUnit](http://www.nunit.org) and [Moq](http://code.google.com/p/moq), references have been added using [NuGet](http://nuget.codeplex.com/) Packages.
+
+This project is a simple console app that allows users in different types of roles to scan given text for negative words.
 
 ## Requirements 
 
@@ -79,8 +79,9 @@ Project is created with:
 To run this project:
 
 ```
+$ cd ./ContentConsole
 $ dotnet run
-
+$ follow console instructions 
 ```
 
 ## Comments
