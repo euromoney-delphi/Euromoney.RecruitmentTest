@@ -19,21 +19,39 @@ namespace ContentConsole.Processor
         public void Run()
         {
 
-            Console.WriteLine($"Please select your role. Type A for Admin Role, C for Content Curator or U for user:");
+            Console.WriteLine($"Please select your role: {Constants.ADMIN_ROLE} for admin, {Constants.CONTENT_CURATOR_ROLE} for content curator, {Constants.READER_ROLE} for reader role or {Constants.USER_ROLE} for user.");
             var role = Console.ReadLine();
 
-            if (role == Constants.ADMIN_ROLE)
+            switch (role.ToUpper())
             {
-                ProgramHelper.RunAdminPath(_apiService, _processor);
-                return;
-            }
-            else if (role == Constants.CONTENT_CURATOR_ROLE)
-            {
-                ProgramHelper.RunContentCuratorPath(_processor);
-                return;
+                case Constants.ADMIN_ROLE:
+                    {
+                        ProgramHelper.RunAdminPath(_apiService, _processor);
+                        break;
+                    }
+                case Constants.CONTENT_CURATOR_ROLE:
+                    {
+                        ProgramHelper.RunContentCuratorPath(_processor);
+                        break;
+                    }
+                case Constants.READER_ROLE:
+                    {
+                        ProgramHelper.GetUserInputWithFilter(_processor);
+                        break;
+                    }
+                case Constants.USER_ROLE:
+                    {
+                        ProgramHelper.GetUserInputWithoutFilter(_processor);
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine($"Incorrect value. Please enter valid value for your role. {Constants.ADMIN_ROLE} for admin, {Constants.CONTENT_CURATOR_ROLE} for content curator, {Constants.READER_ROLE} for reader role or {Constants.USER_ROLE} for user.");
+                        break;
+                    }
             }
 
-            ProgramHelper.GetUserInputWithFilter(_processor);
+
         }
     }
 }
