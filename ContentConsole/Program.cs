@@ -40,5 +40,4 @@ namespace ContentConsole
             Console.ReadKey();
         }
     }
-
 }
