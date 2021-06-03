@@ -1,6 +1,6 @@
-﻿namespace Domain
+﻿namespace Domain.UnkindContentReport
 {
-    public interface IUserReport
+    public interface IUnkindContentReport
     {
         int NegativeWordCount { get; }
         string OriginalText { get; }
